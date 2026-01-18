@@ -400,9 +400,41 @@
             border-color: rgba(255,255,255,0.4);
             color: white;
         }
+
+        /* --- YENİ EKLENEN SATIN ALDIRMA PSİKOLOJİSİ (SALES POPUP) STİLLERİ --- */
+        #sales-popup {
+            position: fixed;
+            left: 20px;
+            bottom: 100px; /* Chat ve Nav butonlarının üzerinde */
+            background: rgba(10, 10, 10, 0.95);
+            border-left: 4px solid var(--brand-red);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 50;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateX(-150%);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            max-width: 300px;
+        }
+        #sales-popup.show { transform: translateX(0); }
+        .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
+        .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
+        .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
+        /* ---------------------------------------------------------------------- */
     </style>
 </head>
 <body class="selection:bg-red-600">
+
+    <div id="sales-popup">
+        <div class="popup-avatar"><i class="fas fa-user-check text-red-600"></i></div>
+        <div class="popup-content">
+            <p id="popup-text">Bir kullanıcı <span>ELIT</span> paketini satın aldı!</p>
+            <p style="opacity: 0.5; font-size: 9px; margin-top: 2px;" id="popup-time">3 dakika önce</p>
+        </div>
+    </div>
 
     <div id="preloader">
         <div id="step1" class="intro-step">
@@ -845,6 +877,9 @@
                 if(preloader) preloader.classList.add('preloader-hidden');
                 setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 1000);
             }, 7500);
+
+            // PSİKOLOJİK SATIŞ TETİKLEYİCİSİNİ BAŞLAT
+            startSalesPopups();
         });
 
         AOS.init({ duration: 800, once: false, mirror: true });
@@ -995,6 +1030,49 @@
             const element = document.getElementById(id);
             if(element) { window.scrollTo({ top: element.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
         }
+
+        // --- YENİ EKLENEN SATIN ALDIRMA FONKSİYONU ---
+       // --- SANSÜRLÜ SATIŞ BİLDİRİM SİSTEMİ ---
+        function startSalesPopups() {
+            const popup = document.getElementById('sales-popup');
+            const popupText = document.getElementById('popup-text');
+            const popupTime = document.getElementById('popup-time');
+            
+            // İsim listesini genişlettim ki varyasyon artsın
+            const names = ["Emre", "Caner", "Mert", "Arda", "Burak", "Yiğit", "Ahmet", "Furkan", "Alper", "Batuhan", "Volkan", "Selim", "Kaan", "Gökhan", "Ege", "Deniz", "Oğuz", "Tolga", "Sefa", "Umut"];
+            const packages = ["ELIT – 24 Hafta", "PRO – 12 Hafta", "STAR – 4 Hafta", "ELIT – 24 Hafta"];
+            const times = ["2 dakika önce", "Şimdi", "5 dakika önce", "12 dakika önce", "Az önce"];
+
+            // Senin istediğin A***T (Sansür) mantığı
+            function maskName(name) {
+                if (name.length <= 2) return name.toUpperCase();
+                const first = name[0];
+                const last = name[name.length - 1];
+                const stars = "*".repeat(name.length - 2);
+                return (first + stars + last).toUpperCase();
+            }
+
+            function show() {
+                const rawName = names[Math.floor(Math.random() * names.length)];
+                const maskedName = maskName(rawName); // İsim burada sansürleniyor
+                
+                const randomPackage = packages[Math.floor(Math.random() * packages.length)];
+                const randomTime = times[Math.floor(Math.random() * times.length)];
+
+                popupText.innerHTML = `${maskedName}, <span>${randomPackage}</span> paketini satın aldı!`;
+                popupTime.innerText = randomTime;
+
+                popup.classList.add('show');
+
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 4000);
+            }
+
+            setTimeout(() => {
+                show();
+                setInterval(show, Math.floor(Math.random() * (40000 - 25000) + 25000));
+            }, 15000);
+     
+        }
     </script>
-</body>
-</html>
