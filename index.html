@@ -14,15 +14,14 @@
     
     <link rel="canonical" href="https://highmanfitness.github.io/HighManFitness/">
 
-
-    <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     
     <meta property="og:title" content="HIGH MAN FITNESS | Zayıflığı Öldür">
     <meta property="og:description" content="Profesyonel değişim için resmi onaylı koçluk sistemi. Potansiyelini zirveye taşı.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070">
+    <meta property="og:image" content="logo.png">
     <meta property="og:url" content="https://highmanfitness.github.io">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -39,7 +38,7 @@
         "@context": "https://schema.org",
         "@type": "SportsActivityLocation",
         "name": "HIGH MAN FITNESS",
-        "image": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070",
+        "image": "logo.png",
         "description": "Devlet onaylı resmi antrenör eşliğinde profesyonel fitness ve uzaktan eğitim hizmetleri.",
         "telephone": "+905459475808",
         "email": "highmanfitnessofficial@gmail.com",
@@ -128,13 +127,11 @@
         .loader-logo {
             width: 80px;
             height: 80px;
-            background: var(--brand-red);
-            border-radius: 20px;
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
             margin-left: auto;
             margin-right: auto;
             animation: logoPulse 2s ease-in-out infinite;
@@ -402,11 +399,10 @@
             color: white;
         }
 
-        /* --- YENİ EKLENEN SATIN ALDIRMA PSİKOLOJİSİ (SALES POPUP) STİLLERİ --- */
         #sales-popup {
             position: fixed;
             left: 20px;
-            bottom: 100px; /* Chat ve Nav butonlarının üzerinde */
+            bottom: 100px;
             background: rgba(10, 10, 10, 0.95);
             border-left: 4px solid var(--brand-red);
             padding: 15px 20px;
@@ -424,7 +420,6 @@
         .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
         .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
         .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
-        /* ---------------------------------------------------------------------- */
     </style>
 </head>
 <body class="selection:bg-red-600">
@@ -446,7 +441,7 @@
         </div>
         <div id="loaderMain" class="loader-content">
             <div class="loader-logo">
-                <i class="fas fa-dumbbell text-white text-3xl"></i>
+                <img src="logo.png" alt="High Man Logo" class="w-full h-full object-contain">
             </div>
             <div class="loader-text italic tracking-widest">HIGH MAN FITNESS</div>
             <div class="loader-bar-container">
@@ -458,9 +453,7 @@
     <nav class="fixed top-0 w-full z-[60] glass border-b border-white/5">
         <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 cursor-pointer" onclick="scrollToSection('home')">
-                <div class="bg-red-600 w-8 h-8 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,0,0,0.5)]">
-                    <i class="fas fa-dumbbell text-white text-sm"></i>
-                </div>
+                <img src="logo.png" alt="High Man Logo" class="w-10 h-10 object-contain">
                 <span class="font-brand font-bold text-lg tracking-tighter italic">HIGH MAN FITNESS</span>
             </div>
             <div class="flex gap-4">
@@ -739,7 +732,8 @@
             </div>
         </div>
     </section>
-<section id="about" class="py-20 px-5 instructor-card">
+
+    <section id="about" class="py-20 px-5 instructor-card">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col items-center mb-12" data-aos="fade-up">
                 <div class="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mb-6 border border-red-600/30">
@@ -902,7 +896,6 @@
                 setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 1000);
             }, 7500);
 
-            // PSİKOLOJİK SATIŞ TETİKLEYİCİSİNİ BAŞLAT
             startSalesPopups();
         });
 
@@ -1055,19 +1048,15 @@
             if(element) { window.scrollTo({ top: element.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
         }
 
-        // --- YENİ EKLENEN SATIN ALDIRMA FONKSİYONU ---
-       // --- SANSÜRLÜ SATIŞ BİLDİRİM SİSTEMİ ---
         function startSalesPopups() {
             const popup = document.getElementById('sales-popup');
             const popupText = document.getElementById('popup-text');
             const popupTime = document.getElementById('popup-time');
             
-            // İsim listesini genişlettim ki varyasyon artsın
             const names = ["Emre", "Caner", "Mert", "Arda", "Burak", "Yiğit", "Ahmet", "Furkan", "Alper", "Batuhan", "Volkan", "Selim", "Kaan", "Gökhan", "Ege", "Deniz", "Oğuz", "Tolga", "Sefa", "Umut"];
             const packages = ["ELIT – 24 Hafta", "PRO – 12 Hafta", "STAR – 4 Hafta", "ELIT – 24 Hafta"];
             const times = ["2 dakika önce", "Şimdi", "5 dakika önce", "12 dakika önce", "Az önce"];
 
-            // Senin istediğin A***T (Sansür) mantığı
             function maskName(name) {
                 if (name.length <= 2) return name.toUpperCase();
                 const first = name[0];
@@ -1078,7 +1067,7 @@
 
             function show() {
                 const rawName = names[Math.floor(Math.random() * names.length)];
-                const maskedName = maskName(rawName); // İsim burada sansürleniyor
+                const maskedName = maskName(rawName);
                 
                 const randomPackage = packages[Math.floor(Math.random() * packages.length)];
                 const randomTime = times[Math.floor(Math.random() * times.length)];
@@ -1100,3 +1089,5 @@
      
         }
     </script>
+</body>
+</html>
