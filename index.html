@@ -66,8 +66,9 @@
 /* HERO SAĞ GÖRSEL */
 .hero-image {
   position: absolute;
-  right: -2%;        /* biraz dışarı taşır → daha büyük algı */
-  bottom: -4%;       /* yere basma hissi */
+  right: -2%;
+  top: 10%;              /* ⬅ bottom SİLİNDİ */
+  bottom: auto;
   z-index: 2;
   pointer-events: none;
 }
@@ -439,23 +440,28 @@
         .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
         .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
         .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
-        @media (max-width: 768px) {
+      @media (max-width: 768px) {
 
   .hero-image {
-    position: absolute;
-    right: -20%;
-    top: 8%;
-    bottom: auto;
+    top: -40px !important;
+    right: -18% !important;
+    bottom: auto !important;
+    transform: none !important;
     z-index: 1;
     opacity: 0.4;
-    pointer-events: none;
   }
 
   .hero-image img {
-    width: 500px;
-    max-width: none;
+    width: 460px !important;
+    max-width: none !important;
+    animation: none !important;   /* 🔥 ÇOK KRİTİK */
+    transform: none !important;
     object-position: top center;
     filter: grayscale(100%) contrast(1.1);
+  }
+
+  #home {
+    overflow: hidden;
   }
 
   #home * {
@@ -464,6 +470,7 @@
   }
 
 }
+
 
     </style>
 </head>
@@ -1155,3 +1162,4 @@
     </script>
 </body>
 </html>
+
