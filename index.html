@@ -467,37 +467,51 @@
         </div>
     </nav>
 
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
+   <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-5 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/80 to-dark-bg z-10"></div>
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı ve Ekipmanlar" class="w-full h-full object-cover opacity-30 grayscale scale-110">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="Arka Plan" class="w-full h-full object-cover opacity-20 grayscale scale-110">
         </div>
 
-        <div class="relative z-20 w-full max-w-2xl flex flex-col items-center">
-            <div class="flex gap-2 mb-6" data-aos="fade-down" data-aos-delay="200">
-                <span class="inline-block px-3 py-1 bg-red-600 text-[10px] font-black uppercase tracking-[0.2em] rounded">Sınırlarını Parçala</span>
-            </div>
+        <div class="relative z-20 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
             
-            <h1 class="hero-title text-7xl font-black italic uppercase mb-8" data-aos="zoom-in" data-aos-duration="1000">
-                ZAYIFLIĞI <br> <span class="text-red-600">ÖLDÜR.</span>
-            </h1>
-            
-            <div class="impact-text mb-10 text-center" data-aos="fade-up" data-aos-delay="400">
-                <p class="text-2xl font-black text-white mb-2 leading-none">
-                    BAŞLAMAK İÇİN MÜKEMMEL <br> OLMANA GEREK YOK
+            <div class="flex flex-col items-center lg:items-start text-center lg:text-left w-full lg:w-1/2">
+                <div class="flex gap-2 mb-6" data-aos="fade-right" data-aos-delay="200">
+                    <span class="inline-block px-3 py-1 bg-red-600 text-[10px] font-black uppercase tracking-[0.2em] rounded">Sınırlarını Parçala</span>
+                </div>
+                
+                <h1 class="hero-title text-6xl md:text-7xl lg:text-8xl font-black italic uppercase mb-8 leading-none" data-aos="zoom-in" data-aos-duration="1000">
+                    ZAYIFLIĞI <br> <span class="text-red-600">ÖLDÜR.</span>
+                </h1>
+                
+                <div class="impact-text mb-10" data-aos="fade-up" data-aos-delay="400">
+                    <p class="text-2xl md:text-3xl font-black text-white mb-2 leading-none">
+                        BAŞLAMAK İÇİN MÜKEMMEL <br> OLMANA GEREK YOK
+                    </p>
+                    <p class="text-4xl md:text-5xl font-black text-red-600 leading-none">
+                        AMA MÜKEMMEL OLMAK İÇİN <br> BAŞLAMAN GEREK
+                    </p>
+                </div>
+
+                <p class="text-neutral-400 text-lg font-light leading-relaxed mb-8 max-w-md" data-aos="fade-up" data-aos-delay="600">
+                    Potansiyelini gerçeğe dönüştüren <span class="text-white font-bold">bir mimarla</span> çalışmaya hazır mısın?
                 </p>
-                <p class="text-4xl font-black text-red-600 leading-none">
-                    AMA MÜKEMMEL OLMAK İÇİN <br> BAŞLAMAN GEREK
-                </p>
+
+                <div class="flex flex-col gap-4 w-full max-w-sm" data-aos="fade-up" data-aos-delay="800">
+                    <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
+                </div>
             </div>
 
-            <p class="text-neutral-400 text-lg font-light leading-relaxed mb-8 max-w-md mx-auto" data-aos="fade-up" data-aos-delay="600">
-                Potansiyelini gerçeğe dönüştüren <span class="text-white font-bold">bir mimarla</span> çalışmaya hazır mısın?
-            </p>
-
-            <div class="flex flex-col gap-4 w-full max-w-sm" data-aos="fade-up" data-aos-delay="800">
-                <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
+            <div class="relative w-full lg:w-1/2 flex justify-center lg:justify-end" data-aos="fade-left" data-aos-delay="500">
+                <div class="relative w-[320px] md:w-[480px] lg:w-[600px]">
+                    <img src="hero.png" alt="High Man Coach" 
+                         style="mix-blend-mode: multiply; filter: contrast(1.1) brightness(1.1);"
+                         class="relative z-10 w-full h-auto drop-shadow-[0_10px_40px_rgba(255,0,0,0.2)]">
+                    
+                    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-full h-1/2 bg-red-600/20 blur-[100px] -z-10"></div>
+                </div>
             </div>
+
         </div>
     </section>
 
