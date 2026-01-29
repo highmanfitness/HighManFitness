@@ -66,17 +66,19 @@
 /* HERO SAĞ GÖRSEL */
 .hero-image {
   position: absolute;
-  right: -2%;
-  top: 10%;              /* ⬅ bottom SİLİNDİ */
-  bottom: auto;
+  right: -2%;        /* biraz dışarı taşır → daha büyük algı */
+  bottom: -4%;       /* yere basma hissi */
   z-index: 2;
   pointer-events: none;
 }
 
 .hero-image img {
-  width: 560px;      /* 🔥 BÜYÜK BOY */
-  max-width: 45vw;   /* responsive ama iri */
-  opacity: 0.9;      /* netliği artırır */
+  width: 560px;
+  max-width: 45vw;
+  opacity: 0.9;
+
+  animation: heroSlideIn 1.2s ease-out forwards;
+  animation-delay: 0.3s;
 }
 
 
@@ -440,38 +442,40 @@
         .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
         .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
         .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
-      @media (max-width: 768px) {
-
-  .hero-image {
-    top: -40px !important;
-    right: -18% !important;
-    bottom: auto !important;
-    transform: none !important;
-    z-index: 1;
-    opacity: 0.4;
+         @keyframes heroSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(80px) scale(0.95);
   }
-
-  .hero-image img {
-    width: 460px !important;
-    max-width: none !important;
-    animation: none !important;   /* 🔥 ÇOK KRİTİK */
-    transform: none !important;
-    object-position: top center;
-    filter: grayscale(100%) contrast(1.1);
+  100% {
+    opacity: 0.9;
+    transform: translateX(0) scale(1);
   }
-
-  #home {
-    overflow: hidden;
-  }
-
-  #home * {
-    position: relative;
-    z-index: 5;
-  }
-
 }
 
+/* YOUTUBE ÜSTÜ MOBİL RESİM */
+.mobile-instructor-highlight {
+    display: none;
+}
 
+@media (max-width: 768px) {
+    .mobile-instructor-highlight {
+        display: block;
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+    .mobile-instructor-img {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        filter: drop-shadow(0 0 20px rgba(255,0,0,0.3));
+        animation: floatImg 4s ease-in-out infinite;
+    }
+    @keyframes floatImg {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+}
     </style>
 </head>
 <body class="selection:bg-red-600">
@@ -604,6 +608,10 @@
             </div>
         </div>
     </section>
+
+    <div class="mobile-instructor-highlight" data-aos="fade-up">
+        <img src="ben.png" alt="High Man Fitness Eğitmen Mobil" class="mobile-instructor-img">
+    </div>
 
     <section id="youtube" class="py-20 px-5 youtube-section">
         <div class="max-w-5xl mx-auto">
@@ -1162,5 +1170,3 @@
     </script>
 </body>
 </html>
-
-
