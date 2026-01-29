@@ -63,6 +63,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
+/* HERO SAĞ GÖRSEL */
+.hero-image {
+  position: absolute;
+  right: -2%;        /* biraz dışarı taşır → daha büyük algı */
+  bottom: -4%;       /* yere basma hissi */
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-image img {
+  width: 560px;      /* 🔥 BÜYÜK BOY */
+  max-width: 45vw;   /* responsive ama iri */
+  opacity: 0.9;      /* netliği artırır */
+}
+
+
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;800;900&display=swap');
         
         :root {
@@ -467,7 +483,7 @@
         </div>
     </nav>
 
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
+    <section id="home" class="relative min-h-[85vh] flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/80 to-dark-bg z-10"></div>
             <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı ve Ekipmanlar" class="w-full h-full object-cover opacity-30 grayscale scale-110">
@@ -499,7 +515,11 @@
                 <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
             </div>
         </div>
-    </section>
+          <div class="hero-image">
+  <img src="hero.png" alt="Hero Body">
+</div>
+
+</section>
 
     <section id="special-offer" class="relative py-12 px-5 z-40">
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
