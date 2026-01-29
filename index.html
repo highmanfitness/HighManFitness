@@ -63,55 +63,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* HERO GÖRSELİ AYARLARI */
+        /* HERO SAĞ GÖRSEL (PC) */
         .hero-image {
           position: absolute;
-          z-index: 10; /* Salon resminin (0) üstünde, yazıların (20) altında */
+          right: -2%;        
+          bottom: -4%;       
+          z-index: 2;
           pointer-events: none;
-          transition: all 0.5s ease;
         }
 
-        /* PC VERSİYONU */
-        @media (min-width: 769px) {
-            .hero-image {
-                right: -2%;        
-                bottom: -4%;
-            }
-            .hero-image img {
-                width: 560px;
-                max-width: 45vw;
-                opacity: 0.9;
-                animation: heroSlideIn 1.2s ease-out forwards;
-            }
+        .hero-image img {
+          width: 560px;
+          max-width: 45vw;
+          opacity: 0.9;
+          animation: heroSlideIn 1.2s ease-out forwards;
+          animation-delay: 0.3s;
         }
 
-        /* MOBİL VERSİYONU (GÜNCELLENDİ) */
+        /* MOBİL İÇİN DÜZENLEMELER */
         @media (max-width: 768px) {
+            /* Mobilde PC görselini gizle */
             .hero-image {
-                left: 50%;
-                top: 50%; 
-                transform: translate(-50%, -50%);
+                display: none !important;
+            }
+            
+            /* Mobilde alt kısımda görünecek görsel alanı */
+            .mobile-hero-wrapper {
+                display: block !important;
                 width: 100%;
-                display: flex;
-                justify-content: center;
-                opacity: 1 !important; /* TAM GÖRÜNÜR (SAYDAMLIK YOK) */
+                position: relative;
+                z-index: 10;
+                margin-top: -20px; /* Bölümler arası boşluğu azaltmak için */
+                padding-bottom: 20px;
+                background: linear-gradient(to bottom, transparent, var(--dark-bg));
             }
-            .hero-image img {
-                width: 160%; /* DAHA BÜYÜK */
-                max-width: none;
-                filter: none !important; /* HİÇBİR FİLTRE YOK (ORİJİNAL) */
-                animation: heroFadeIn 1.5s ease-out forwards;
+            
+            .mobile-hero-wrapper img {
+                width: 100%;
+                height: auto;
+                max-width: 600px; /* Çok büyük tabletlerde devasa olmasın */
+                margin: 0 auto;
+                display: block;
+                filter: drop-shadow(0 0 20px rgba(255,0,0,0.1));
+                animation: fadeUpMobile 1s ease-out forwards;
             }
         }
 
-        @keyframes heroFadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); } /* Saydamlık 1'e gider */
+        /* PC'de mobil görseli gizle */
+        @media (min-width: 769px) {
+            .mobile-hero-wrapper {
+                display: none !important;
+            }
         }
 
-        @keyframes heroSlideIn {
-          0% { opacity: 0; transform: translateX(80px) scale(0.95); }
-          100% { opacity: 0.9; transform: translateX(0) scale(1); }
+        @keyframes fadeUpMobile {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;800;900&display=swap');
@@ -474,7 +481,16 @@
         .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
         .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
         .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
-
+         @keyframes heroSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(80px) scale(0.95);
+  }
+  100% {
+    opacity: 0.9;
+    transform: translateX(0) scale(1);
+  }
+}
     </style>
 </head>
 <body class="selection:bg-red-600">
@@ -519,17 +535,13 @@
         </div>
     </nav>
 
-    <section id="home" class="relative min-h-[95vh] flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
+    <section id="home" class="relative min-h-[85vh] flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/80 to-dark-bg z-10"></div>
-            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı" class="w-full h-full object-cover opacity-30 grayscale scale-110">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı ve Ekipmanlar" class="w-full h-full object-cover opacity-30 grayscale scale-110">
         </div>
 
-        <div class="hero-image">
-            <img src="hero.png" alt="Hero Body">
-        </div>
-
-        <div class="relative z-[20] w-full max-w-2xl flex flex-col items-center">
+        <div class="relative z-20 w-full max-w-2xl flex flex-col items-center">
             <div class="flex gap-2 mb-6" data-aos="fade-down" data-aos-delay="200">
                 <span class="inline-block px-3 py-1 bg-red-600 text-[10px] font-black uppercase tracking-[0.2em] rounded">Sınırlarını Parçala</span>
             </div>
@@ -555,26 +567,41 @@
                 <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
             </div>
         </div>
+        
+        <div class="hero-image">
+            <img src="hero.png" alt="Hero Body">
+        </div>
+
     </section>
+
+    <div class="mobile-hero-wrapper">
+        <img src="hero.png" alt="Hero Body Mobile">
+    </div>
 
     <section id="special-offer" class="relative py-12 px-5 z-40">
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
             <div class="glass rounded-[2.5rem] p-8 md:p-12 border border-red-600/30 relative overflow-hidden group">
+                
                 <div class="absolute top-0 right-0 w-64 h-64 bg-red-600/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-red-600/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+                
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                    
                     <div class="text-center md:text-left flex-1">
                         <div class="inline-flex items-center gap-2 bg-red-600/20 border border-red-600/50 px-4 py-1.5 rounded-full mb-6 animate-pulse">
                             <span class="w-2 h-2 bg-red-600 rounded-full shadow-[0_0_10px_red]"></span>
                             <span class="text-red-500 text-[10px] font-black uppercase tracking-[0.2em]">Sınırlı Kontenjan</span>
                         </div>
+                        
                         <h2 class="text-3xl md:text-5xl font-black italic uppercase text-white mb-4 leading-none">
                             İLK 5 KİŞİYE <br>
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-white">ÖZEL FIRSAT</span>
                         </h2>
+                        
                         <p class="text-neutral-400 text-sm font-medium leading-relaxed max-w-lg mx-auto md:mx-0 mb-6">
-                            Yeni dönem online koçluk alımları başladı. Sadece ilk 5 kişiye özel; <span class="text-white font-bold">%20 İndirim</span> Hediye.
+                            Yeni dönem online koçluk alımları başladı. Sadece ilk 5 kişiye özel; <span class="text-white font-bold">%20 İndirim</span> <span class="text-white font-bold"></span> Hediye.
                         </p>
+
                         <div class="w-full max-w-xs mx-auto md:mx-0 bg-neutral-800 h-2 rounded-full overflow-hidden mb-2 relative">
                             <div class="absolute top-0 left-0 h-full bg-red-600 w-[70%] shadow-[0_0_15px_red]"></div>
                         </div>
@@ -582,12 +609,21 @@
                             Kalan Kontenjan: <span class="text-red-500">2 Kişi</span>
                         </p>
                     </div>
+
                     <div class="flex-shrink-0 w-full md:w-auto">
                         <button onclick="sendWhatsApp('İlk 5 Danışan')" class="group relative w-full md:w-auto overflow-hidden bg-white text-black py-6 px-10 rounded-2xl font-black uppercase italic tracking-tighter text-xl transition-all hover:scale-105 btn-glow">
-                            <span class="relative z-10 flex items-center justify-center gap-3">HEMEN YERİNİ KAP <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform duration-300 text-red-600"></i></span>
+                            <span class="relative z-10 flex items-center justify-center gap-3">
+                                HEMEN YERİNİ KAP
+                                <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform duration-300 text-red-600"></i>
+                            </span>
                             <div class="absolute inset-0 bg-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 -z-0"></div>
+                            <span class="absolute inset-0 border-2 border-transparent group-hover:border-white/20 rounded-2xl pointer-events-none"></span>
                         </button>
+                        <p class="text-[9px] text-center mt-3 text-neutral-500 uppercase tracking-widest opacity-60">
+                            *Başvuru sırasına göre alınacaktır.
+                        </p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -604,18 +640,26 @@
                     <h3 class="text-4xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
                         PROFESYONEL İÇERİKLER <br> <span class="text-red-600 underline decoration-white/10 underline-offset-4">YAYINDA!</span>
                     </h3>
+                    <p class="text-neutral-400 text-lg font-medium leading-relaxed mb-8">
+                        Antrenman sırları, doğru form teknikleri ve motivasyon dolu videolar için bizi YouTube'da takip etmeyi unutma. Sınırlarını bizimle genişlet.
+                    </p>
                     <a href="https://www.youtube.com/@HighManFitness" target="_blank" class="inline-flex items-center gap-4 bg-red-600 text-white px-10 py-5 rounded-2xl font-black uppercase italic tracking-widest text-lg btn-glow hover:scale-105 transition-all">
-                        <i class="fas fa-play"></i> ŞİMDİ ABONE OL
+                        <i class="fas fa-play"></i>
+                        ŞİMDİ ABONE OL
                     </a>
                 </div>
                 <div class="flex-1 relative" data-aos="fade-left">
                     <div class="relative z-10 rounded-[2.5rem] overflow-hidden border-2 border-red-600 shadow-[0_0_50px_rgba(255,0,0,0.3)] bg-neutral-900 aspect-video flex items-center justify-center cursor-pointer group" onclick="window.open('https://www.youtube.com/@HighManFitness', '_blank')">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110" alt="High Man Fitness YouTube">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070" loading="lazy" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:scale-110 transition-transform duration-700" alt="High Man Fitness YouTube Kanalı Önizlemesi">
                         <div class="relative z-20 text-white flex flex-col items-center">
-                            <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-4"><i class="fas fa-play text-2xl ml-1"></i></div>
+                            <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(255,0,0,0.6)] group-hover:scale-125 transition-transform duration-500">
+                                <i class="fas fa-play text-2xl ml-1"></i>
+                            </div>
                             <span class="font-black italic uppercase tracking-widest">Kanalı Görüntüle</span>
                         </div>
                     </div>
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-red-600/20 rounded-full blur-3xl"></div>
                 </div>
             </div>
         </div>
@@ -624,39 +668,51 @@
     <section id="process" class="py-20 px-5 bg-black border-t border-white/5 relative">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-4">SÜREÇ NASIL <span class="text-red-600">İLERLİYOR?</span></h2>
+                <h2 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-4">
+                    SÜREÇ NASIL <span class="text-red-600">İLERLİYOR?</span>
+                </h2>
                 <p class="text-neutral-500 text-xs font-bold uppercase tracking-[0.3em]">5 Adımlı Profesyonel Sistem</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 transition-all group text-center" data-aos="fade-up">
-                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20">01</div>
-                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 mx-auto text-red-600 border border-red-600/20"><i class="fas fa-clipboard-list"></i></div>
+                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 hover:bg-neutral-900 transition-all duration-300 group h-full flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20 transition-colors">01</div>
+                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 text-red-600 border border-red-600/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-clipboard-list text-xl"></i>
+                    </div>
                     <h3 class="text-lg font-black uppercase italic text-white mb-2">Analiz</h3>
-                    <p class="text-neutral-400 text-xs">Mevcut formun ve hedeflerin detaylıca analiz edilir.</p>
+                    <p class="text-neutral-400 text-xs font-medium leading-relaxed">Mevcut formun, yaşam tarzın ve hedeflerin detaylıca analiz edilir.</p>
                 </div>
-                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 transition-all group text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20">02</div>
-                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 mx-auto text-red-600 border border-red-600/20"><i class="fas fa-pencil-ruler"></i></div>
+                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 hover:bg-neutral-900 transition-all duration-300 group h-full flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20 transition-colors">02</div>
+                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 text-red-600 border border-red-600/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-pencil-ruler text-xl"></i>
+                    </div>
                     <h3 class="text-lg font-black uppercase italic text-white mb-2">Planlama</h3>
-                    <p class="text-neutral-400 text-xs">Sana özel programın bilimsel temelle hazırlanır.</p>
+                    <p class="text-neutral-400 text-xs font-medium leading-relaxed">Sana özel antrenman ve beslenme programın bilimsel temelle hazırlanır.</p>
                 </div>
-                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 transition-all group text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20">03</div>
-                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 mx-auto text-red-600 border border-red-600/20"><i class="fas fa-dumbbell"></i></div>
+                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 hover:bg-neutral-900 transition-all duration-300 group h-full flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20 transition-colors">03</div>
+                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 text-red-600 border border-red-600/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-dumbbell text-xl"></i>
+                    </div>
                     <h3 class="text-lg font-black uppercase italic text-white mb-2">Uygulama</h3>
-                    <p class="text-neutral-400 text-xs">Program başlar. Doğru form teknikleriyle ilerlersin.</p>
+                    <p class="text-neutral-400 text-xs font-medium leading-relaxed">Program başlar. Antrenman videoları ve doğru form teknikleriyle ilerlersin.</p>
                 </div>
-                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 transition-all group text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20">04</div>
-                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 mx-auto text-red-600 border border-red-600/20"><i class="fas fa-chart-line"></i></div>
-                    <h3 class="text-lg font-black uppercase italic text-white mb-2">Takip</h3>
-                    <p class="text-neutral-400 text-xs">Her hafta kontrol yapılır ve program güncellenir.</p>
+                <div class="bg-neutral-900/50 border border-white/5 p-6 rounded-2xl hover:border-red-600/50 hover:bg-neutral-900 transition-all duration-300 group h-full flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-5xl font-black italic text-white/5 mb-4 group-hover:text-red-600/20 transition-colors">04</div>
+                    <div class="w-12 h-12 rounded-full bg-red-600/10 flex items-center justify-center mb-4 text-red-600 border border-red-600/20 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-black uppercase italic text-white mb-2">Haftalık Takip</h3>
+                    <p class="text-neutral-400 text-xs font-medium leading-relaxed">Her hafta kontrol yapılır. Gelişimine göre programın güncellenir.</p>
                 </div>
-                <div class="bg-red-600 p-6 rounded-2xl hover:scale-105 transition-all text-center shadow-lg" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-5xl font-black italic text-white/10 mb-4">05</div>
-                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-4 mx-auto text-red-600"><i class="fas fa-trophy"></i></div>
+                <div class="bg-neutral-900/50 border border-red-600/20 p-6 rounded-2xl hover:bg-red-600 hover:scale-105 transition-all duration-300 group h-full flex flex-col items-center text-center shadow-[0_0_30px_rgba(255,0,0,0.1)]" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-5xl font-black italic text-white/10 mb-4 group-hover:text-white/20 transition-colors">05</div>
+                    <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mb-4 text-red-600 shadow-lg group-hover:scale-110 transition-transform">
+                        <i class="fas fa-trophy text-xl"></i>
+                    </div>
                     <h3 class="text-lg font-black uppercase italic text-white mb-2">SONUÇ</h3>
-                    <p class="text-white/80 text-xs">Disiplinin sonucu: Hedeflediğin o fizik.</p>
+                    <p class="text-neutral-400 text-xs font-medium leading-relaxed group-hover:text-white/90">Disiplin ve doğru planlamanın sonucu: Hedeflediğin o fizik.</p>
                 </div>
             </div>
         </div>
@@ -665,30 +721,75 @@
     <section id="pricing" class="py-12 px-5">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col items-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-center">DEVLETTEN <span class="text-red-600 underline decoration-white/20 underline-offset-8">RESMİ ONAYLI</span> ANTRENÖR</h2>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="h-[1px] w-12 bg-red-600"></div>
+                    <span class="text-red-600 text-xs font-black uppercase tracking-[0.3em]">Resmi Yetki</span>
+                    <div class="h-[1px] w-12 bg-red-600"></div>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-black uppercase italic tracking-tighter text-center">
+                    DEVLETTEN <span class="text-red-600 underline decoration-white/20 underline-offset-8">RESMİ ONAYLI</span> ANTRENÖR
+                </h2>
                 <p class="mt-4 text-neutral-500 text-sm font-bold uppercase tracking-widest italic">Güven ve Sonuç Odaklı Profesyonel Eğitim</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="premium-card card-basic p-6 rounded-[2.5rem]" data-aos="fade-right">
-                    <h3 class="text-xl font-black italic uppercase text-neutral-200">STAR – 4 Hafta</h3>
-                    <div class="text-2xl font-black italic mb-6">₺2.950</div>
-                    <ul class="space-y-3 mb-8 text-sm text-neutral-400"><li class="flex items-center gap-3"><i class="fas fa-check-circle text-neutral-100"></i> 4 Haftalık Ders</li><li><i class="fas fa-check-circle text-neutral-100"></i> Genel Beslenme Klavuzu</li></ul>
-                    <button onclick="sendWhatsApp('STAR – 4 Hafta')" class="w-full py-4 rounded-xl bg-neutral-800 text-white font-black uppercase italic text-sm hover:bg-white hover:text-black transition-all">Paketi Seç</button>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+                <div class="premium-card card-basic p-6 rounded-[2.5rem] relative overflow-hidden group h-full" data-aos="fade-right" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-black italic uppercase text-neutral-200">STAR – 4 Hafta</h3>
+                            <p class="text-neutral-500 text-[10px] font-bold tracking-widest uppercase mt-1">4 Haftalık Ders / Temel Seviye</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-black italic">₺2.950</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-neutral-400 font-medium"><i class="fas fa-check-circle text-neutral-100"></i> 4 Haftalık Ders</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-400 font-medium"><i class="fas fa-check-circle text-neutral-100"></i> Genel Beslenme Klavuzu</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-400 font-medium"><i class="fas fa-check-circle text-neutral-100"></i> Haftalık performans & güç takibi</li>
+                    </ul>
+                    <button onclick="sendWhatsApp('STAR – 4 Hafta')" class="w-full py-4 rounded-xl bg-neutral-800 text-white font-black uppercase italic tracking-widest text-sm hover:bg-white hover:text-black transition-all mb-2">Paketi Seç</button>
                     <button onclick="openModal('star')" class="w-full detail-btn">Paket Detayları</button>
                 </div>
-                <div class="premium-card card-medium p-7 rounded-[2.5rem] bg-neutral-900/50" data-aos="fade-up">
-                    <h3 class="text-xl font-black italic uppercase text-orange-500">PRO – 12 Hafta</h3>
-                    <div class="text-2xl font-black italic mb-6">₺7.450</div>
-                    <ul class="space-y-3 mb-8 text-sm text-neutral-300"><li class="flex items-center gap-3"><i class="fas fa-fire text-orange-500"></i>12 Haftalık Ders</li><li><i class="fas fa-fire text-orange-500"></i> Kişiye Özel Beslenme</li></ul>
-                    <button onclick="sendWhatsApp('PRO – 12 Hafta')" class="w-full py-4 rounded-xl bg-neutral-700 text-white font-black uppercase italic text-sm hover:bg-white hover:text-black transition-all">Paketi Seç</button>
+
+                <div class="premium-card card-medium p-7 rounded-[2.5rem] relative overflow-hidden bg-neutral-900/50 h-full" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-xl font-black italic uppercase text-orange-500">PRO – 12 Hafta</h3>
+                            <p class="text-neutral-500 text-[10px] font-bold tracking-widest uppercase mt-1">12 Haftalık Ders/Sağlam gelişim</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-black italic">₺7.450</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-neutral-300 font-semibold"><i class="fas fa-fire text-orange-500"></i>12 Haftalık Ders/Zoom</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-300 font-semibold"><i class="fas fa-fire text-orange-500"></i> Kişiye Özel Beslenme Listesi</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-300 font-semibold"><i class="fas fa-fire text-orange-500"></i> Kişiye özel ilerlemeli antrenman planı</li>
+                    </ul>
+                    <button onclick="sendWhatsApp('PRO – 12 Hafta')" class="w-full py-4 rounded-xl bg-neutral-700 text-white font-black uppercase italic tracking-widest text-sm hover:bg-white hover:text-black transition-all mb-2">Paketi Seç</button>
                     <button onclick="openModal('pro')" class="w-full detail-btn">Paket Detayları</button>
                 </div>
-                <div class="premium-card card-hardcore p-8 rounded-[2.5rem] border-red-600 shadow-2xl" data-aos="fade-left">
-                    <h3 class="text-2xl font-black italic uppercase text-red-600">ELIT – 24 Hafta</h3>
-                    <div class="text-3xl font-black italic text-white mb-6">₺12.950</div>
-                    <ul class="space-y-3 mb-8 text-sm text-neutral-200"><li class="flex items-center gap-3"><i class="fas fa-skull text-red-600"></i>24 Haftalık Full Değişim</li><li><i class="fas fa-skull text-red-600"></i> Supplement Danışmanlığı</li></ul>
-                    <button onclick="sendWhatsApp('ELIT – 24 Hafta')" class="w-full py-5 rounded-2xl bg-red-600 text-white font-black uppercase italic text-lg btn-glow">Hemen Başla</button>
-                    <button onclick="openModal('elit')" class="w-full detail-btn">Paket Detayları</button>
+
+                <div class="premium-card card-hardcore p-8 rounded-[2.5rem] relative overflow-hidden border-red-600 shadow-[0_0_50px_rgba(255,0,0,0.2)] z-10 h-full" data-aos="fade-left" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 bg-red-600 text-white px-6 py-2 rounded-bl-3xl text-[10px] font-black uppercase tracking-widest animate-pulse z-10">En Popüler</div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-2xl font-black italic uppercase text-red-600">ELIT – 24 Hafta</h3>
+                            <p class="text-neutral-400 text-[10px] font-bold tracking-widest uppercase mt-1">24 HAFTALIK DERS / Üst Düzey Gelişim</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-3xl font-black italic text-white">₺12.950</div>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-neutral-200 font-semibold"><i class="fas fa-skull text-red-600"></i>Zoom ile form analiz</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-200 font-semibold"><i class="fas fa-skull text-red-600"></i>24 Haftalık Ders + Supplement Danışmanlığı</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-200 font-semibold"><i class="fas fa-skull text-red-600"></i> Baştan/Sona Full değişim</li>
+                        <li class="flex items-center gap-3 text-sm text-neutral-200 font-semibold"><i class="fas fa-skull text-red-600"></i>24 Hafta Kesintisiz Değişim </li>
+                    </ul>
+                    <button onclick="sendWhatsApp('ELIT – 24 Hafta')" class="w-full py-5 rounded-2xl bg-red-600 text-white font-black uppercase italic tracking-widest text-lg btn-glow mb-2">Hemen Başla</button>
+                    <button onclick="openModal('elit')" class="w-full detail-btn" style="border-color: rgba(255,0,0,0.5); color: rgba(255,0,0,0.8);">Paket Detayları</button>
                 </div>
             </div>
         </div>
@@ -696,65 +797,176 @@
 
     <section id="certificates" class="py-20 px-5 bg-black/40 border-y border-white/5">
         <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-white mb-10">SERTİFİKALARIM</h2>
-            <div class="relative group max-w-2xl mx-auto"><img src="belge.png" alt="Sertifika" class="w-full h-auto rounded-2xl grayscale hover:grayscale-0 transition-all cursor-zoom-in" onclick="window.open('belge.png', '_blank')"></div>
-            <p class="mt-8 text-neutral-500 text-[11px] font-bold uppercase tracking-[0.3em] italic">T.C. GENÇLİK VE SPOR BAKANLIĞI ONAYLI RESMİ ANTRENÖRLÜK BELGESİ</p>
+            <div class="flex items-center justify-center gap-3 mb-10">
+                <div class="h-[1px] w-12 bg-red-600"></div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase italic tracking-tighter text-white">
+                    SERTİFİKALARIM
+                </h2>
+                <div class="h-[1px] w-12 bg-red-600"></div>
+            </div>
+
+            <div class="relative group max-w-2xl mx-auto px-2">
+                <div class="absolute -inset-2 bg-red-600/20 rounded-[2rem] blur-2xl group-hover:bg-red-600/30 transition duration-700"></div>
+                
+                <div class="relative bg-neutral-900 border border-white/10 p-2 rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+                    <img 
+                        src="belge.png" 
+                        alt="High Man Fitness Antrenörlük Sertifikası" 
+                        class="w-full h-auto rounded-xl grayscale hover:grayscale-0 transition-all duration-700 cursor-zoom-in active:scale-[0.98]"
+                        onclick="window.open('belge.png', '_blank')"
+                        loading="lazy"
+                    >
+                    <div class="absolute bottom-6 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span class="bg-red-600/90 backdrop-blur-md text-[10px] text-white px-5 py-2 rounded-full font-black uppercase tracking-[0.2em] shadow-xl">
+                            BÜYÜTMEK İÇİN TIKLA
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="mt-8 text-neutral-500 text-[11px] font-bold uppercase tracking-[0.3em] italic opacity-80">
+                T.C. GENÇLİK VE SPOR BAKANLIĞI ONAYLI RESMİ ANTRENÖRLÜK BELGESİ
+            </p>
         </div>
     </section>
 
     <section id="about" class="py-20 px-5 instructor-card">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col items-center mb-12" data-aos="fade-up">
-                <h2 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-center">BEN NASIL BİR <span class="text-red-600">EĞİTMENİM?</span></h2>
-            </div>
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="w-full lg:w-1/2 space-y-6 text-neutral-300 text-lg order-2 lg:order-1" data-aos="fade-right">
-                    <p>Devlet onaylı antrenörlük belgesine sahip, çocukluktan bugüne judo, tekvando, güreş gibi branşlarla gelişmiş bir eğitmenim.</p>
-                    <p>Vizyonum; kısa vadeli hevesler değil, kalıcı güç ve sağlıklı gelişim kazandırmaktır.</p>
+                <div class="w-20 h-20 bg-red-600/10 rounded-full flex items-center justify-center mb-6 border border-red-600/30">
+                    <i class="fas fa-user-tie text-red-600 text-3xl"></i>
                 </div>
-                <div class="w-full lg:w-1/2 order-1 lg:order-2" data-aos="fade-left"><img src="ben.png" alt="Eğitmen" class="w-full rounded-[2.5rem] shadow-2xl"></div>
+                <h2 class="text-3xl md:text-5xl font-black uppercase italic tracking-tighter text-center">
+                    BEN NASIL BİR <span class="text-red-600">EĞİTMENİM?</span>
+                </h2>
+            </div>
+
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="w-full lg:w-1/2 space-y-6 text-neutral-300 text-lg leading-relaxed font-medium order-2 lg:order-1" data-aos="fade-right">
+                    <p>Ben Devlet onaylı antrenörlük belgesine ve fitness eğitmenliği sertifikasına sahip, spor lisesi mezunu; çocukluktan bugüne çok branşlı spor geçmişi olan bir eğitmenim.</p>
+                    
+                    <p>Eğitim ve spor geçmişim; ilkokul yıllarında başladığım judo ile temellendi, ardından tekvando, yüzme, basketbol ve güreş branşlarıyla gelişti. Uzun yıllardır ise fitness ve güreş alanlarında aktif olarak çalışıyorum.</p>
+                    
+                    <div class="py-6 px-8 bg-red-600/5 rounded-3xl border border-red-600/20 italic relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-red-600"></div>
+                        <span class="text-white font-bold block mb-2">VİZYONUM:</span>
+                        Antrenman yaklaşımım; kişiye özel planlama, doğru teknik, disiplinli ilerleme ve sakatlık riskini en aza indiren sistemler üzerine kuruludur. Amaç; kısa vadeli hevesler değil, kalıcı güç, sağlıklı gelişim ve sürdürülebilir performans kazandırmaktır.
+                    </div>
+                    
+                    <p class="text-base text-neutral-400">Her program, danışanın hedefleri, fiziksel seviyesi ve geçmişi dikkate alınarak profesyonel bir çerçevede hazırlanır ve süreç boyunca bilinçli şekilde takip edilir.</p>
+                </div>
+
+                <div class="w-full lg:w-1/2 order-1 lg:order-2" data-aos="fade-left">
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <div class="relative bg-black rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl">
+                            <img src="ben.png" alt="High Man Fitness Eğitmen" class="w-full h-auto object-cover transition-all duration-700 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60"></div>
+                            <div class="absolute bottom-6 right-6 text-right">
+                                <span class="text-red-600 font-black italic text-xl tracking-tighter uppercase">HIGH MAN</span>
+                                <p class="text-[10px] text-white/70 font-bold uppercase tracking-widest">Resmi Onaylı Antrenör</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <section class="py-20 px-5 sponsor-section">
+        <div class="max-w-4xl mx-auto text-center" data-aos="zoom-in">
+            <div class="inline-block p-4 rounded-3xl bg-white/5 border border-white/10 mb-8 w-full">
+                <i class="fas fa-handshake text-red-600 text-4xl mb-4"></i>
+                <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-4 text-white">İŞ BİRLİĞİ VE SPONSORLUK</h3>
+                <p class="text-neutral-400 text-sm leading-relaxed mb-6 px-4">
+                    HIGH MAN FITNESS markası ile profesyonel projeler, sponsorluklar ve iş birlikleri için kurumsal iletişim hattımız üzerinden bize ulaşabilirsiniz. Vizyonumuza ortak olun.
+                </p>
+                <a href="mailto:highmanfitnessofficial@gmail.com" class="inline-flex items-center gap-3 bg-white text-black px-8 py-3 rounded-full font-black uppercase text-xs tracking-widest hover:bg-red-600 hover:text-white transition-all duration-300">
+                    <i class="far fa-envelope text-lg"></i>
+                    BİZE ULAŞIN
+                </a>
+                <p class="mt-4 text-[10px] font-bold text-red-600 tracking-widest uppercase">highmanfitnessofficial@gmail.com</p>
             </div>
         </div>
     </section>
 
     <footer class="bg-black py-20 px-5 text-center border-t border-white/5 pb-32">
-        <div class="font-brand font-bold text-2xl italic mb-8">HIGH MAN FITNESS</div>
+        <div class="font-brand font-bold text-2xl italic mb-2">HIGH MAN FITNESS</div>
+        <div class="flex justify-center gap-6 mb-8 text-neutral-400">
+            <a href="https://www.youtube.com/@HighManFitness" target="_blank" class="hover:text-red-600 transition-colors text-2xl" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="mailto:highmanfitnessofficial@gmail.com" class="hover:text-red-600 transition-colors text-2xl" aria-label="Email"><i class="far fa-envelope"></i></a>
+        </div>
+        <p class="text-neutral-600 text-[10px] uppercase tracking-[0.4em] font-black mb-10">Limits are Illusion</p>
         <p class="text-neutral-500 text-[10px] font-bold uppercase">&copy; 2026 HIGH MAN FITNESS. Tüm Hakları Saklıdır.</p>
     </footer>
 
     <div class="mobile-nav fixed bottom-0 left-0 w-full z-[100] p-4 flex justify-center">
         <div class="glass w-full max-sm h-16 rounded-3xl flex items-center justify-around px-4 border-white/10 shadow-2xl">
-            <button onclick="scrollToSection('home')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500"><i class="fas fa-home"></i><span class="text-[8px] uppercase">Giriş</span></button>
-            <button onclick="scrollToSection('youtube')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500"><i class="fab fa-youtube"></i><span class="text-[8px] uppercase">YouTube</span></button>
-            <div class="relative -top-8"><button onclick="toggleChat()" class="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl border-4 border-[#050505] pulse-animation"><i class="fas fa-robot text-white text-2xl"></i></button></div>
-            <button onclick="scrollToSection('about')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500"><i class="fas fa-user-tie"></i><span class="text-[8px] uppercase">Hakkımda</span></button>
-            <button onclick="sendWhatsApp('Bilgi')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500"><i class="fab fa-whatsapp"></i><span class="text-[8px] uppercase">Destek</span></button>
+            <button onclick="scrollToSection('home')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500 transition-colors" aria-label="Ana Sayfa">
+                <i class="fas fa-home text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Giriş</span>
+            </button>
+            <button onclick="scrollToSection('youtube')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500 transition-colors" aria-label="YouTube Kanalı">
+                <i class="fab fa-youtube text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-widest">YouTube</span>
+            </button>
+            <div class="relative -top-8">
+                <button onclick="toggleChat()" class="bg-red-600 w-16 h-16 rounded-full flex items-center justify-center shadow-2xl border-4 border-[#050505] btn-glow pulse-animation" aria-label="Asistanı Aç">
+                    <i class="fas fa-robot text-white text-2xl"></i>
+                </button>
+            </div>
+            <button onclick="scrollToSection('about')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500 transition-colors" aria-label="Hakkımda">
+                <i class="fas fa-user-tie text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Hakkımda</span>
+            </button>
+            <button onclick="sendWhatsApp('Bilgi')" class="flex flex-col items-center gap-1 text-white/50 hover:text-red-500 transition-colors" aria-label="WhatsApp Destek">
+                <i class="fab fa-whatsapp text-lg"></i>
+                <span class="text-[8px] font-bold uppercase tracking-widest">Destek</span>
+            </button>
         </div>
     </div>
 
-    <div id="chat-window" class="fixed flex flex-col glass rounded-t-[2.5rem] border-white/10 overflow-hidden">
+    <div id="chat-window" class="fixed flex flex-col glass rounded-t-[2.5rem] border-white/10 overflow-hidden shadow-2xl">
         <div class="bg-red-600 p-5 flex items-center justify-between">
-            <h4 class="text-sm font-black uppercase text-white">HIGH AI</h4>
-            <button onclick="toggleChat()" class="text-white"><i class="fas fa-chevron-down"></i></button>
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-lg"><i class="fas fa-robot text-red-600"></i></div>
+                <div>
+                    <h4 class="text-sm font-black uppercase italic text-white leading-tight">HIGH AI</h4>
+                    <span class="text-[9px] text-white/70 font-bold uppercase tracking-tighter">Hızlı Yanıt Sistemi</span>
+                </div>
+            </div>
+            <button onclick="toggleChat()" class="text-white text-xl p-2" aria-label="Sohbeti Kapat"><i class="fas fa-chevron-down"></i></button>
         </div>
         <div id="chat-messages" class="flex-grow p-5 overflow-y-auto space-y-4 text-sm no-scrollbar bg-black/40">
-            <div class="bg-white/5 p-4 rounded-2xl rounded-tl-none text-neutral-200">Selam dostum! Ben **HIGH AI**. Aklına takılanları sorabilirsin.</div>
+            <div class="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none text-neutral-200">Selam dostum! Ben **HIGH AI**. Değişim yolculuğunda aklına takılanları sormaktan çekinme.</div>
         </div>
         <div class="p-5 border-t border-white/10 bg-black/60 pb-10">
+            <p class="text-[10px] text-neutral-500 uppercase font-black mb-4 tracking-widest">Popüler Sorular:</p>
             <div class="flex flex-wrap gap-2">
-                <button onclick="respond('karlı')" class="text-[10px] bg-white/5 border border-white/10 px-4 py-2 rounded-full font-bold uppercase hover:bg-red-600/20">En Karlı?</button>
-                <button onclick="respond('uygun')" class="text-[10px] bg-white/5 border border-white/10 px-4 py-2 rounded-full font-bold uppercase hover:bg-red-600/20">Hangi Paket?</button>
+                <button onclick="respond('karlı')" class="text-[10px] bg-white/5 border border-white/10 px-4 py-2 rounded-full font-bold uppercase hover:bg-red-600/20 hover:border-red-600 transition-all">En Karlı?</button>
+                <button onclick="respond('uygun')" class="text-[10px] bg-white/5 border border-white/10 px-4 py-2 rounded-full font-bold uppercase hover:bg-red-600/20 hover:border-red-600 transition-all">Hangi Paket?</button>
+                <button onclick="respond('kayıt')" class="text-[10px] bg-white/5 border border-white/10 px-4 py-2 rounded-full font-bold uppercase hover:bg-red-600/20 hover:border-red-600 transition-all">Nasıl Kayıt?</button>
             </div>
         </div>
     </div>
 
-    <div id="detail-modal"><div class="modal-content"><span class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></span><div id="modal-body"></div></div></div>
+    <div id="detail-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()" aria-label="Kapat"><i class="fas fa-times"></i></span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Sağ tık ve incele engelleme
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-        document.onkeydown = function(e) { if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false; };
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+        };
 
         window.addEventListener('load', function() {
             const step1 = document.getElementById('step1');
@@ -764,42 +976,143 @@
             const preloader = document.getElementById('preloader');
 
             setTimeout(() => { if(step1) step1.classList.add('active'); }, 500);
-            setTimeout(() => { if(step1) step1.classList.remove('active'); setTimeout(() => { if(step2) step2.classList.add('active'); }, 400); }, 2500);
-            setTimeout(() => { if(step2) step2.classList.remove('active'); setTimeout(() => { if(loaderMain) loaderMain.classList.add('show'); if(finalBar) finalBar.style.animation = "animateBar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards"; }, 400); }, 5000);
-            setTimeout(() => { if(preloader) preloader.classList.add('preloader-hidden'); setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 1000); }, 7500);
+            setTimeout(() => {
+                if(step1) step1.classList.remove('active');
+                setTimeout(() => { if(step2) step2.classList.add('active'); }, 400);
+            }, 2500);
+            setTimeout(() => {
+                if(step2) step2.classList.remove('active');
+                setTimeout(() => {
+                    if(loaderMain) loaderMain.classList.add('show');
+                    if(finalBar) finalBar.style.animation = "animateBar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards";
+                }, 400);
+            }, 5000);
+            setTimeout(() => {
+                if(preloader) preloader.classList.add('preloader-hidden');
+                setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 1000);
+            }, 7500);
+
             startSalesPopups();
         });
 
-        AOS.init({ duration: 800, once: false });
+        AOS.init({ duration: 800, once: false, mirror: true });
 
         const modal = document.getElementById('detail-modal');
         const modalBody = document.getElementById('modal-body');
+
         const packageDetails = {
-            'star': { title: 'STAR – 4 Hafta', color: 'text-neutral-200', desc: '<div class="text-center"><h4 class="font-bold uppercase mb-4 text-white">TEMEL & ADAPTASYON</h4><p class="text-neutral-400 text-sm">Fitness yolculuğuna ilk adımı atanlar için.</p></div>' },
-            'pro': { title: 'PRO – 12 Hafta', color: 'text-orange-500', desc: '<div class="text-center"><h4 class="font-bold uppercase mb-4 text-white">YAĞ YAKIMI & KAS İNŞASI</h4><p class="text-neutral-400 text-sm">Değişimin aynada fark edildiği seviye.</p></div>' },
-            'elit': { title: 'ELIT – 24 Hafta', color: 'text-red-600', desc: '<div class="text-center"><h4 class="font-bold uppercase mb-4 text-white">TAM DEĞİŞİM</h4><p class="text-neutral-300 text-sm font-medium">Sıradan sonuçlarla yetinmeyenler için.</p></div>' }
+            'star': {
+                title: 'STAR – 4 Hafta',
+                color: 'text-neutral-200',
+                desc: `
+                    <div class="text-center">
+                        <i class="fas fa-seedling text-4xl mb-4 text-neutral-400"></i>
+                        <h4 class="text-xl font-bold uppercase mb-4 text-white">TEMEL & ADAPTASYON</h4>
+                        <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+                            Fitness yolculuğuna ilk adımı atanlar veya spora ara verenler için. 4 haftalık süreçte vücudunu uyandırmaya, disiplin kazanmaya ve temel kas inşasına odaklanıyoruz.
+                        </p>
+                        <ul class="text-left space-y-2 text-xs text-neutral-300 bg-white/5 p-4 rounded-xl border border-white/10">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> Doğru form ve teknik öğrenimi</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> Hamlık atma ve spora adaptasyon</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> Temel kas kazanımı başlangıcı</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'pro': {
+                title: 'PRO – 12 Hafta',
+                color: 'text-orange-500',
+                desc: `
+                    <div class="text-center">
+                        <i class="fas fa-fire text-4xl mb-4 text-orange-500"></i>
+                        <h4 class="text-xl font-bold uppercase mb-4 text-white">YAĞ YAKIMI & KAS İNŞASI</h4>
+                        <p class="text-neutral-400 text-sm leading-relaxed mb-6">
+                            Değişimin aynada fark edildiği seviye. 12 haftalık programla hem yağ oranını düşürmek hem de kas kütlesini artırarak daha fit bir görünüm kazanmak isteyenler için.
+                        </p>
+                        <ul class="text-left space-y-2 text-xs text-neutral-300 bg-white/5 p-4 rounded-xl border border-white/10">
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i> Belirgin yağ yakımı ve sıkılaşma</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i> Kas kütlesinde gözle görülür artış</li>
+                            <li><i class="fas fa-check text-orange-500 mr-2"></i> Kuvvet ve dayanıklılık maksimizasyonu</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'elit': {
+                title: 'ELIT – 24 Hafta',
+                color: 'text-red-600',
+                desc: `
+                    <div class="text-center">
+                        <i class="fas fa-skull text-4xl mb-4 text-red-600 animate-pulse"></i>
+                        <h4 class="text-2xl font-black uppercase mb-4 text-white italic">İRİLİK, KURU FORM & TAM DEĞİŞİM</h4>
+                        <p class="text-neutral-300 text-sm leading-relaxed mb-6 font-medium">
+                            Sıradan sonuçlarla yetinmeyenler için. 24 haftalık süreçte maksimum kas kütlesi (bulk) veya jilet gibi keskin bir fizik (definasyon) hedefleyenler için tam kapsamlı dönüşüm.
+                        </p>
+                        <div class="bg-red-600/10 border border-red-600/30 p-4 rounded-xl mb-6">
+                            <p class="text-red-500 text-xs font-bold uppercase tracking-widest italic">
+                                "Yarım yamalak iş yapanlar değil, gerçekten full değişim isteyenler seçsin."
+                            </p>
+                        </div>
+                        <ul class="text-left space-y-2 text-xs text-neutral-300">
+                            <li><i class="fas fa-star text-red-600 mr-2"></i> Maksimum kas kütlesi (İrilik/Bulk)</li>
+                            <li><i class="fas fa-star text-red-600 mr-2"></i> Definasyon ve Kuru Form (Damarlı görünüm)</li>
+                            <li><i class="fas fa-star text-red-600 mr-2"></i> Supplement ve ileri seviye beslenme stratejileri</li>
+                            <li><i class="fas fa-star text-red-600 mr-2"></i> <span class="text-white font-bold">Baştan sona fiziksel yeniden inşa</span></li>
+                        </ul>
+                    </div>
+                `
+            }
         };
 
         function openModal(planType) {
             const data = packageDetails[planType];
             if(!data) return;
-            modalBody.innerHTML = `<h3 class="text-2xl font-black italic uppercase text-center mb-6 ${data.color}">${data.title}</h3>${data.desc}<button onclick="closeModal()" class="w-full mt-6 py-3 bg-white text-black font-black uppercase rounded-xl">KAPAT</button>`;
-            modal.style.display = 'flex'; setTimeout(() => { modal.classList.add('active'); }, 10);
-            document.body.style.overflow = 'hidden';
+
+            modalBody.innerHTML = `
+                <h3 class="text-2xl font-black italic uppercase text-center mb-6 ${data.color}">${data.title}</h3>
+                ${data.desc}
+                <button onclick="closeModal()" class="w-full mt-6 py-3 bg-white text-black font-black uppercase rounded-xl hover:bg-neutral-200 transition-colors">KAPAT</button>
+            `;
+            
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+            document.body.style.overflow = 'hidden'; 
         }
 
-        function closeModal() { modal.classList.remove('active'); setTimeout(() => { modal.style.display = 'none'; }, 300); document.body.style.overflow = 'auto'; }
+        function closeModal() {
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+            document.body.style.overflow = 'auto'; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
 
         const chatWindow = document.getElementById('chat-window');
         const chatMessages = document.getElementById('chat-messages');
         const responses = {
-            'karlı': { q: "En karlı paket hangisi?", a: "**ELIT – 24 Hafta** paketi şu an en karlısıdır." },
-            'uygun': { q: "Hangi paket bana uygun?", a: "Eğer gerçek bir değişim istiyorsan kesinlikle **ELIT** paketini öneririm." }
+            'karlı': { q: "En karlı paket hangisi?", a: "Matematik yalan söylemez dostum! Görselden de fark edebileceğin gibi, en parlak ve **EN POPÜLER** seçimimiz olan **ELIT – 24 Hafta** paketi şu an en karlısı. 24 haftalık profesyonel süreç için toplamda **₺12.950** ödüyorsun, bu da uzun vadede en büyük tasarrufu sağlıyor." },
+            'uygun': { q: "Hangi paket bana uygun?", a: "Eğer gerçek bir değişim istiyorsan ve en iyi sonucu en profesyonel şekilde almak istiyorsan kesinlikle **ELIT – 24 Hafta** paketini öneririm. Uzun vadeli yatırım, her zaman en iyi sonucu verir." },
+            'kayıt': { q: "Nasıl kayıt olabilirim?", a: "Hemen WhatsApp hattına yaz! En popüler paketimiz olan **ELIT (24 Hafta)** için kontenjanlar hızla doluyor." }
         };
 
         function toggleChat() { 
             const isVisible = chatWindow.style.display === 'flex';
-            if(isVisible) { chatWindow.style.display = 'none'; } else { chatWindow.style.display = 'flex'; }
+            if(isVisible) {
+                chatWindow.style.opacity = '0';
+                chatWindow.style.transform = 'translateY(20px)';
+                setTimeout(() => { chatWindow.style.display = 'none'; }, 300);
+            } else {
+                chatWindow.style.display = 'flex';
+                chatWindow.style.opacity = '0';
+                chatWindow.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    chatWindow.style.opacity = '1';
+                    chatWindow.style.transform = 'translateY(0)';
+                }, 10);
+            }
         }
 
         function respond(key) {
@@ -811,27 +1124,66 @@
 
         function addMessage(text, sender) {
             const div = document.createElement('div');
-            div.className = sender === 'user' ? "bg-red-600/20 p-3 rounded-2xl self-end mb-2" : "bg-white/5 p-3 rounded-2xl mb-2";
-            div.innerHTML = text;
+            div.className = sender === 'user' ? 
+                "bg-red-600/20 border border-red-600/40 p-3 rounded-2xl rounded-tr-none text-neutral-200 self-end ml-10 mb-2 transform transition-all duration-300 translate-y-2 opacity-0" : 
+                "bg-white/5 border border-white/10 p-3 rounded-2xl rounded-tl-none text-neutral-200 mr-10 mb-2 transform transition-all duration-300 translate-y-2 opacity-0";
+            div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-red-500">$1</strong>');
             chatMessages.appendChild(div);
+            setTimeout(() => { div.classList.remove('translate-y-2', 'opacity-0'); }, 50);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        function sendWhatsApp(plan) { window.location.href = `https://wa.me/905459475808?text=Selam! ${plan} paketi hakkında bilgi almak istiyorum.`; }
+        function sendWhatsApp(plan) {
+            const phoneNumber = "905459475808";
+            const message = encodeURIComponent(`Selam HIGH MAN FITNESS! ${plan} paketi hakkında bilgi almak ve resmi onaylı bir antrenörle eğitime başlamak istiyorum.`);
+            window.location.href = `https://wa.me/${phoneNumber}?text=${message}`;
+        }
 
-        function scrollToSection(id) { const element = document.getElementById(id); if(element) { window.scrollTo({ top: element.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); } }
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if(element) { window.scrollTo({ top: element.getBoundingClientRect().top + window.pageYOffset - 80, behavior: 'smooth' }); }
+        }
 
         function startSalesPopups() {
             const popup = document.getElementById('sales-popup');
             const popupText = document.getElementById('popup-text');
-            const names = ["Emre", "Caner", "Mert", "Arda", "Burak", "Yiğit"];
-            function show() {
-                popupText.innerHTML = `${names[Math.floor(Math.random()*names.length)]}, <span>ELIT</span> paketini aldı!`;
-                popup.classList.add('show');
-                setTimeout(() => popup.classList.remove('show'), 4000);
+            const popupTime = document.getElementById('popup-time');
+            
+            const names = ["Emre", "Caner", "Mert", "Arda", "Burak", "Yiğit", "Ahmet", "Furkan", "Alper", "Batuhan", "Volkan", "Selim", "Kaan", "Gökhan", "Ege", "Deniz", "Oğuz", "Tolga", "Sefa", "Umut"];
+            const packages = ["ELIT – 24 Hafta", "PRO – 12 Hafta", "STAR – 4 Hafta", "ELIT – 24 Hafta"];
+            const times = ["2 dakika önce", "Şimdi", "5 dakika önce", "12 dakika önce", "Az önce"];
+
+            function maskName(name) {
+                if (name.length <= 2) return name.toUpperCase();
+                const first = name[0];
+                const last = name[name.length - 1];
+                const stars = "*".repeat(name.length - 2);
+                return (first + stars + last).toUpperCase();
             }
-            setInterval(show, 30000);
+
+            function show() {
+                const rawName = names[Math.floor(Math.random() * names.length)];
+                const maskedName = maskName(rawName);
+                
+                const randomPackage = packages[Math.floor(Math.random() * packages.length)];
+                const randomTime = times[Math.floor(Math.random() * times.length)];
+
+                popupText.innerHTML = `${maskedName}, <span>${randomPackage}</span> paketini satın aldı!`;
+                popupTime.innerText = randomTime;
+
+                popup.classList.add('show');
+
+                setTimeout(() => {
+                    popup.classList.remove('show');
+                }, 4000);
+            }
+
+            setTimeout(() => {
+                show();
+                setInterval(show, Math.floor(Math.random() * (40000 - 25000) + 25000));
+            }, 15000);
         }
     </script>
 </body>
 </html>
+
