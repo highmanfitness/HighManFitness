@@ -63,24 +63,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-/* HERO SAĞ GÖRSEL */
-.hero-image {
-  position: absolute;
-  right: -2%;        /* biraz dışarı taşır → daha büyük algı */
-  bottom: -4%;       /* yere basma hissi */
-  z-index: 2;
-  pointer-events: none;
-}
+        /* HERO SAĞ GÖRSEL (PC) */
+        .hero-image {
+          position: absolute;
+          right: -2%;        
+          bottom: -4%;       
+          z-index: 2;
+          pointer-events: none;
+        }
 
-.hero-image img {
-  width: 560px;
-  max-width: 45vw;
-  opacity: 0.9;
+        .hero-image img {
+          width: 560px;
+          max-width: 45vw;
+          opacity: 0.9;
+          animation: heroSlideIn 1.2s ease-out forwards;
+          animation-delay: 0.3s;
+        }
 
-  animation: heroSlideIn 1.2s ease-out forwards;
-  animation-delay: 0.3s;
-}
+        /* MOBİL İÇİN DÜZENLEMELER */
+        @media (max-width: 768px) {
+            /* Mobilde PC görselini gizle */
+            .hero-image {
+                display: none !important;
+            }
+            
+            /* Mobilde alt kısımda görünecek görsel alanı */
+            .mobile-hero-wrapper {
+                display: block !important;
+                width: 100%;
+                position: relative;
+                z-index: 10;
+                margin-top: -20px; /* Bölümler arası boşluğu azaltmak için */
+                padding-bottom: 20px;
+                background: linear-gradient(to bottom, transparent, var(--dark-bg));
+            }
+            
+            .mobile-hero-wrapper img {
+                width: 100%;
+                height: auto;
+                max-width: 600px; /* Çok büyük tabletlerde devasa olmasın */
+                margin: 0 auto;
+                display: block;
+                filter: drop-shadow(0 0 20px rgba(255,0,0,0.1));
+                animation: fadeUpMobile 1s ease-out forwards;
+            }
+        }
 
+        /* PC'de mobil görseli gizle */
+        @media (min-width: 769px) {
+            .mobile-hero-wrapper {
+                display: none !important;
+            }
+        }
+
+        @keyframes fadeUpMobile {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;800;900&display=swap');
         
@@ -528,11 +567,16 @@
                 <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
             </div>
         </div>
-          <div class="hero-image">
-  <img src="hero.png" alt="Hero Body">
-</div>
+        
+        <div class="hero-image">
+            <img src="hero.png" alt="Hero Body">
+        </div>
 
-</section>
+    </section>
+
+    <div class="mobile-hero-wrapper">
+        <img src="hero.png" alt="Hero Body Mobile">
+    </div>
 
     <section id="special-offer" class="relative py-12 px-5 z-40">
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
