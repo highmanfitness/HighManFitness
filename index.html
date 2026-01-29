@@ -63,7 +63,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        /* HERO GÖRSELİ (PC VE MOBİL ORTAK KATMANLARI) */
+        /* HERO GÖRSELİ AYARLARI */
         .hero-image {
           position: absolute;
           z-index: 10; /* Salon resminin (0) üstünde, yazıların (20) altında */
@@ -71,7 +71,7 @@
           transition: all 0.5s ease;
         }
 
-        /* PC VERSİYONU AYARLARI */
+        /* PC VERSİYONU */
         @media (min-width: 769px) {
             .hero-image {
                 right: -2%;        
@@ -85,28 +85,28 @@
             }
         }
 
-        /* MOBİL VERSİYONU AYARLARI (YAZILARIN ARKASINA ALMA) */
+        /* MOBİL VERSİYONU (GÜNCELLENDİ) */
         @media (max-width: 768px) {
             .hero-image {
                 left: 50%;
-                top: 55%; /* Yazıların biraz altına/arkasına denk gelmesi için */
+                top: 50%; 
                 transform: translate(-50%, -50%);
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                opacity: 0.6; /* Yazıların okunması için hafif saydamlık */
+                opacity: 1 !important; /* TAM GÖRÜNÜR (SAYDAMLIK YOK) */
             }
             .hero-image img {
-                width: 130%; /* Yazıların arkasını doldurması için genişletildi */
+                width: 160%; /* DAHA BÜYÜK */
                 max-width: none;
-                filter: blur(2px) brightness(0.7); /* Derinlik hissi için hafif blur */
-                animation: heroFadeIn 2s ease-out forwards;
+                filter: none !important; /* HİÇBİR FİLTRE YOK (ORİJİNAL) */
+                animation: heroFadeIn 1.5s ease-out forwards;
             }
         }
 
         @keyframes heroFadeIn {
             from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 0.6; transform: scale(1); }
+            to { opacity: 1; transform: scale(1); } /* Saydamlık 1'e gider */
         }
 
         @keyframes heroSlideIn {
