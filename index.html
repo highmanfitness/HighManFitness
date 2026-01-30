@@ -206,7 +206,7 @@
         .hero-title {
             line-height: 0.85;
             letter-spacing: -0.05em;
-            text-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.4); 
         }
 
         .impact-text {
@@ -467,63 +467,46 @@
         </div>
     </nav>
 
-  <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-5 overflow-hidden">
+<section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-5 overflow-hidden text-center">
         
         <div class="absolute inset-0 z-0">
-            <div class="absolute inset-0 bg-gradient-to-b from-dark-bg/70 via-dark-bg/80 to-dark-bg z-10"></div>
-            <img src="hero.png" alt="High Man Fitness Arkaplan" class="w-full h-full object-cover opacity-50 lg:opacity-10">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/80 to-dark-bg z-10"></div>
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı" class="w-full h-full object-cover opacity-30 grayscale scale-110">
         </div>
 
-        <div class="relative z-20 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center lg:items-start justify-between gap-12">
+        <div class="absolute inset-x-0 bottom-0 z-10 h-full flex items-end justify-center md:justify-end pointer-events-none">
+        <img src="hero.png" alt="High Man Hero" 
+     class="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 h-[140vh] md:h-[140vh] w-auto object-contain object-bottom opacity-100 md:opacity-100 z-0 pointer-events-none md:mr-[-5%]">
+        </div>
+
+        <div class="relative z-20 w-full max-w-2xl flex flex-col items-center">
             
-            <div class="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left pt-10 lg:pt-0">
-                <div class="flex gap-2 mb-6" data-aos="fade-down" data-aos-delay="200">
-                    <span class="inline-block px-3 py-1 bg-red-600 text-[10px] font-black uppercase tracking-[0.2em] rounded">Sınırlarını Parçala</span>
-                </div>
-                
-                <h1 class="hero-title text-6xl md:text-7xl lg:text-8xl font-black italic uppercase mb-8" data-aos="zoom-in" data-aos-duration="1000">
-                    ZAYIFLIĞI <br> <span class="text-red-600">ÖLDÜR.</span>
-                </h1>
-                
-                <div class="impact-text mb-10" data-aos="fade-up" data-aos-delay="400">
-                    <p class="text-xl md:text-2xl font-black text-white mb-2 leading-none">
-                        BAŞLAMAK İÇİN MÜKEMMEL <br> OLMANA GEREK YOK
-                    </p>
-                    <p class="text-3xl md:text-4xl font-black text-red-600 leading-none">
-                        AMA MÜKEMMEL OLMAK İÇİN <br> BAŞLAMAN GEREK
-                    </p>
-                </div>
-
-                <p class="text-neutral-400 text-lg font-light leading-relaxed mb-8 max-w-md mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="600">
-                    Potansiyelini gerçeğe dönüştüren <span class="text-white font-bold">bir mimarla</span> çalışmaya hazır mısın?
+            <div class="flex gap-2 mb-6" data-aos="fade-down" data-aos-delay="200">
+                <span class="inline-block px-3 py-1 bg-red-600 text-[10px] font-black uppercase tracking-[0.2em] rounded">Sınırlarını Parçala</span>
+            </div>
+            
+            <h1 class="hero-title text-7xl font-black italic uppercase mb-8" data-aos="zoom-in" data-aos-duration="1000">
+                ZAYIFLIĞI <br> <span class="text-red-600">ÖLDÜR.</span>
+            </h1>
+            
+            <div class="impact-text mb-10 text-center" data-aos="fade-up" data-aos-delay="400">
+                <p class="text-2xl font-black text-white mb-2 leading-none">
+                    BAŞLAMAK İÇİN MÜKEMMEL <br> OLMANA GEREK YOK
                 </p>
-
-                <div class="flex flex-col gap-4 w-full max-w-sm" data-aos="fade-up" data-aos-delay="800">
-                    <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95 hover:bg-neutral-200 transition-colors">Hemen Başla</button>
-                </div>
+                <p class="text-4xl font-black text-red-600 leading-none">
+                    AMA MÜKEMMEL OLMAK İÇİN <br> BAŞLAMAN GEREK
+                </p>
             </div>
 
-            <div class="hidden lg:block w-full lg:w-1/2 relative z-30" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-                <img src="hero.png" alt="High Man Fitness Hero" class="w-full h-auto object-contain max-h-[85vh] drop-shadow-[0_0_35px_rgba(255,0,0,0.3)] mask-image-gradient">
-            </div>
+            <p class="text-neutral-400 text-lg font-light leading-relaxed mb-8 max-w-md mx-auto" data-aos="fade-up" data-aos-delay="600">
+                Potansiyelini gerçeğe dönüştüren <span class="text-white font-bold">bir mimarla</span> çalışmaya hazır mısın?
+            </p>
 
+            <div class="flex flex-col gap-4 w-full max-w-sm" data-aos="fade-up" data-aos-delay="800">
+                <button onclick="scrollToSection('process')" class="bg-white text-black py-5 rounded-2xl font-black uppercase italic tracking-tighter text-lg btn-glow active:scale-95">Hemen Başla</button>
+            </div>
         </div>
     </section>
-    ```
-
-### Yaptığım Değişiklikler ve Nedenleri:
-
-1.  **PC Düzeni (Masaüstü):**
-    * Ekranı ikiye böldüm (`lg:flex-row`). Sol tarafa yazıları, sağ tarafa **yeni** görsel alanını koydum.
-    * `lg:items-start` komutunu kullanarak, resmin tepesi ile "ZAYIFLIĞI ÖLDÜR" yazısının tepesini **aynı hizaya** getirdim.
-    * Sağ taraftaki `hero.png`'ye kırmızı bir gölge (`drop-shadow`) ekledim ki siyah temada daha "High Man" tarzı dursun.
-
-2.  **Mobil Düzeni:**
-    * Sağdaki büyük resmi gizledim (`hidden`).
-    * Bunun yerine `hero.png`'yi **arka plana** (`absolute inset-0`) gömdüm. Böylece mobildeyken yazıların arkasında senin fotoğrafın duracak.
-    * Yazıların okunabilir olması için arka plandaki resmin üzerine hafif bir karartma (`bg-gradient`) attım.
-
-**Sonuç:** PC'de profesyonel bir dergi kapağı gibi yan yana duracak, mobilde ise seni arka plana alıp yazıyı öne çıkaracak. Dosyayı kaydet ve `hero.png` dosyasının HTML dosyasıyla aynı klasörde olduğundan emin ol.
 
     <section id="special-offer" class="relative py-12 px-5 z-40">
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
