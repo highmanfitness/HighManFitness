@@ -216,6 +216,50 @@
             font-style: italic;
         }
 
+        /* --- GÜNCELLENEN HERO RESİM STİLLERİ --- */
+        .hero-img-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 15;
+            overflow: hidden;
+        }
+
+        .hero-img-animate {
+            height: 140vh;
+            width: auto;
+            object-contain: contain;
+            object-position: bottom;
+            opacity: 0;
+            transform: translateX(-100px); /* Soldan başla */
+            transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                        opacity 1.5s ease, 
+                        scale 0.5s ease; /* Hover için scale geçişi */
+            pointer-events: auto; /* Hover algılaması için */
+        }
+
+        /* Sayfa yüklendiğinde JS ile eklenecek sınıf */
+        .hero-img-animate.reveal {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hover Etkisi */
+        .hero-img-animate:hover {
+            scale: 1.05;
+        }
+
+        @media (max-width: 768px) {
+            .hero-img-animate {
+                height: 100vh;
+                opacity: 0.6;
+            }
+        }
+        /* -------------------------------------- */
+
         .premium-card {
             background: linear-gradient(145deg, #121212 0%, #080808 100%);
             border: 1px solid #1a1a1a;
@@ -423,6 +467,53 @@
         .popup-avatar { width: 40px; height: 40px; border-radius: 50%; background: #222; display: flex; align-items: center; justify-content: center; border: 1px solid #333; }
         .popup-content p { margin: 0; color: #eee; font-size: 11px; line-height: 1.4; }
         .popup-content span { color: var(--brand-red); font-weight: 800; font-style: italic; }
+        /* --- GÜNCELLENEN HERO RESİM STİLLERİ --- */
+.hero-img-container {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end; /* İçeriği sağa yasla (V2 stili) */
+    pointer-events: none;
+    z-index: 15;
+    overflow: hidden;
+}
+
+.hero-img-animate {
+    height: 140vh; /* Masaüstü yüksekliği */
+    width: auto;
+    object-fit: contain;
+    object-position: bottom right;
+    opacity: 0;
+    transform: translateX(-100px); /* Orijinal animasyon başlangıcınız */
+    transition: transform 1.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                opacity 1.5s ease, 
+                scale 0.5s ease;
+    pointer-events: auto;
+}
+
+/* Sayfa yüklendiğinde tetiklenen sınıf */
+.hero-img-animate.reveal {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Hover Etkisi */
+.hero-img-animate:hover {
+    scale: 1.05;
+}
+
+/* Mobil Görünüm Ayarları (V2 uyumlu) */
+@media (max-width: 768px) {
+    .hero-img-container {
+        justify-content: center; /* Mobilde ortala */
+    }
+    .hero-img-animate {
+        height: 100vh;
+        opacity: 0.6; /* Yazıların okunması için hafif şeffaflık */
+        object-position: bottom;
+    }
+}
     </style>
 </head>
 <body class="selection:bg-red-600">
@@ -474,9 +565,8 @@
             <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070" alt="High Man Fitness Salon Ortamı" class="w-full h-full object-cover opacity-30 grayscale scale-110">
         </div>
 
-        <div class="absolute inset-x-0 bottom-0 z-10 h-full flex items-end justify-center md:justify-end pointer-events-none">
-        <img src="hero.png" alt="High Man Hero" 
-     class="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 h-[400vh] md:h-[140vh] w-auto object-contain object-bottom opacity-70 md:opacity-100 z-0 pointer-events-none md:mr-[-5%]">
+        <div class="hero-img-container">
+            <img src="hero.png" alt="High Man Hero" id="main-hero-img" class="hero-img-animate">
         </div>
 
         <div class="relative z-20 w-full max-w-2xl flex flex-col items-center">
@@ -512,10 +602,6 @@
         <div class="max-w-5xl mx-auto" data-aos="fade-up">
             <div class="glass rounded-[2.5rem] p-8 md:p-12 border border-red-600/30 relative overflow-hidden group">
                 
-            <div class="absolute inset-x-0 bottom-0 z-10 h-full flex items-end justify-center md:justify-end pointer-events-none">
-     <img src="hero.png" alt="High Man Hero" 
-     class="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:right-0 md:translate-x-0 h-[400vh] md:h-[140vh] w-auto object-contain object-bottom opacity-70 md:opacity-100 z-0 pointer-events-none md:mr-[-5%]">
-</div>
                 <div class="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
                     
                     <div class="text-center md:text-left flex-1">
@@ -905,6 +991,7 @@
             const loaderMain = document.getElementById('loaderMain');
             const finalBar = document.getElementById('finalBar');
             const preloader = document.getElementById('preloader');
+            const heroImg = document.getElementById('main-hero-img');
 
             setTimeout(() => { if(step1) step1.classList.add('active'); }, 500);
             setTimeout(() => {
@@ -920,6 +1007,12 @@
             }, 5000);
             setTimeout(() => {
                 if(preloader) preloader.classList.add('preloader-hidden');
+                
+                /* Intro bittikten sonra Hero Resmini Göster */
+                setTimeout(() => {
+                    if(heroImg) heroImg.classList.add('reveal');
+                }, 800);
+
                 setTimeout(() => { if(preloader) preloader.style.display = 'none'; }, 1000);
             }, 7500);
 
@@ -1117,4 +1210,3 @@
     </script>
 </body>
 </html>
-
